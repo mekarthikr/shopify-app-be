@@ -5,6 +5,7 @@ import userApi from './routes/userRoutes';
 import maintenanceApi from './routes/maintananceRoutes';
 import bookOfBusinessApi from './routes/bookOfBusinessRoutes';
 import { logger } from './middleware/logger';
+import { config } from './config';
 
 const app = express();
 const server = http.createServer(app);
@@ -17,9 +18,9 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(json());
 
-app.get('/api/health',(req,res)=>{
-	res.send('Works Fine')
-})
+app.get('/api/health', (req, res) => {
+	res.send('Works Fine');
+});
 
 app.use('/external-portal-bff/v1/user', userApi);
 app.use('/external-portal-bff/v1/maintenance-message', maintenanceApi);
@@ -37,6 +38,6 @@ app.use((req, _res, next) => {
 	next();
 });
 
-server.listen(8080, () => {
+server.listen(config.server.port || 8080, () => {
 	console.log('Server Running at 8080');
 });
