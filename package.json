@@ -7,7 +7,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsc && node dist/server.js",
     "start": "node dist/server.js",
-    "loco":"nodemon",
     "postinstall": "tsc",
     "format:check": "npx prettier --check \"src/**/*.ts\"",
     "format:fix": "npx prettier --write \"src/**/*.ts\""
