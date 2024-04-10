@@ -2,10 +2,12 @@
   "name": "shipify-heroku-app-be",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "dist/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc && node ./dist/server.js",
+    "dev": "tsc && node dist/server.js",
+    "start": "node dist/server.js",
+    "postinstall": "tsc",
     "format:check": "npx prettier --check \"src/**/*.ts\"",
     "format:fix": "npx prettier --write \"src/**/*.ts\""
   },
