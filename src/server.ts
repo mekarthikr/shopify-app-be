@@ -1,16 +1,15 @@
 import express, { json } from 'express';
 import http from 'http';
 import cors from 'cors';
-import userApi from './routes/userRoutes';
-import maintenanceApi from './routes/maintananceRoutes';
-import bookOfBusinessApi from './routes/bookOfBusinessRoutes';
 import { logger } from './middleware/logger';
 import { config } from './config';
+import mongoose from 'mongoose';
+import userApi from './routes/userRoutes';
 
 const app = express();
 const server = http.createServer(app);
 const corsOptions = {
-	origin: 'http://localhost:3000',
+	origin: config.application.uri,
 	credentials: true,
 	optionSuccessStatus: 200,
 };
@@ -18,13 +17,10 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(json());
 
-app.get('/api/health', (req, res) => {
+app.get('/', (req, res) => {
 	res.send('Works Fine');
 });
-
-app.use('/external-portal-bff/v1/user', userApi);
-app.use('/external-portal-bff/v1/maintenance-message', maintenanceApi);
-app.use('/external-portal-bff/v1/book-business', bookOfBusinessApi);
+app.use('/user', userApi);
 
 app.use(function (_req, res, next) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
@@ -33,11 +29,18 @@ app.use(function (_req, res, next) {
 	next();
 });
 
+mongoose.connect(config.database.uri).then(() => {
+	console.log('Connected to DB');
+	server.listen(config.server.port, () => {
+		console.log(`Server Running at ${config.server.port}`);
+	});
+});
+
+mongoose.connection.on('error', (error: Error) => {
+	console.log('error', error);
+});
+
 app.use((req, _res, next) => {
 	logger.info(`Received a ${req.method} request for ${req.url}`);
 	next();
-});
-
-server.listen(config.server.port || 8080, () => {
-	console.log('Server Running at 8080');
 });
