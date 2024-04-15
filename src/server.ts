@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
 app.use('/user', userApi);
 
 app.use(function (_req, res, next) {
-	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Origin', 'https://shopify-heroku-app-fe-303f341dd322.herokuapp.com/');
 	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
 	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 	next();
