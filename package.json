@@ -2,9 +2,8 @@
   "name": "shipify-heroku-app-be",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/server.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsc && node dist/server.js",
     "start": "node dist/server.js",
     "postinstall": "tsc",
