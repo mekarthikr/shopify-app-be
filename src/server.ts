@@ -9,7 +9,7 @@ import userApi from './routes/userRoutes';
 const app = express();
 const server = http.createServer(app);
 const corsOptions = {
-	origin: config.application.uri,
+	origin:'https://shopify-heroku-app-fe-303f341dd322.herokuapp.com/',
 	credentials: true,
 	optionSuccessStatus: 200,
 };
