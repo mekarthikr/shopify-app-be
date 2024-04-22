@@ -2,22 +2,20 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const PORT = process.env.PORT || 8000;
-const APP_URL = process.env.APP_URL;
-const DATABASE = process.env.DATABASE;
-const API_TOKEN = process.env.API_TOKEN;
-
 export const config = {
 	server: {
-		port: PORT,
-	},
+		port: process.env.PORT || 8000,
+  },
 	application: {
-		uri: APP_URL,
+		uri: process.env.APP_URL,
 	},
 	database: {
-		uri: DATABASE,
+		uri: process.env.DATABASE,
 	},
 	okta: {
-		apiToken: API_TOKEN,
+		apiToken: process.env.API_TOKEN,
+		clientId: process.env.SHOPIFY_CLIENT_ID,
+		userGroup: process.env.USER_GROUP,
+		domain: process.env.OKTA_DOMAIN,
 	},
 };

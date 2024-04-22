@@ -6,7 +6,6 @@ class UserController {
 	public addUsers = async (req: Request, res: Response) => {
 		try {
 			let user = req.body;
-			console.log(user);
 			let find = await User.findOne({ email: user.email });
 
 			if (find) {
