@@ -1,4 +1,4 @@
 export const Http = {
-  post: 'POST',
-  get: 'GET',
+	post: 'POST',
+	get: 'GET',
 };

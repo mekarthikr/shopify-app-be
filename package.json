@@ -16,7 +16,8 @@
     "lint": "npm run stylelint && npm run eslint",
     "lint:fix": "npm run stylelint:fix && npm run eslint:fix",
     "format-1": "prettier --check \"src/**/*.{scss,js,ts,tsx}\"",
-    "format-1:fix": "prettier --write \"src/**/*.{scss,js,ts,tsx}\""
+    "format-1:fix": "prettier --write \"src/**/*.{scss,js,ts,tsx}\"",
+    "vercel-build":"echo hello"
   },
   "keywords": [],
   "author": "",

@@ -5,7 +5,7 @@ dotenv.config();
 export const config = {
 	server: {
 		port: process.env.PORT || 8000,
-  },
+	},
 	application: {
 		uri: process.env.APP_URL,
 	},
