@@ -43,9 +43,5 @@ mongoose.connection.on('error', (error: Error) => {
 	console.log('error', error);
 });
 
-app.use((req, _res, next) => {
-	logger.info(`Received a ${req.method} request for ${req.url}`);
-	next();
-});
 
 export default app;
