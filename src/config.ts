@@ -7,7 +7,7 @@ export const config = {
 		port: process.env.PORT || 8000,
 	},
 	application: {
-		uri: process.env.APP_URL,
+		uri: 'https://shopify-app-fe.vercel.app',
 	},
 	database: {
 		uri: process.env.DATABASE,

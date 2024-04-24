@@ -23,10 +23,7 @@ app.get('/', (req, res) => {
 app.use('/user', userApi);
 
 app.use(function (_req, res, next) {
-	res.setHeader(
-		'Access-Control-Allow-Origin',
-		config.application.uri,
-	);
+	res.setHeader('Access-Control-Allow-Origin', config.application.uri);
 	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
 	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 	next();
@@ -42,6 +39,5 @@ mongoose.connect(config.database.uri).then(() => {
 mongoose.connection.on('error', (error: Error) => {
 	console.log('error', error);
 });
-
 
 export default app;
