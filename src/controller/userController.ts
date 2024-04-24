@@ -1,35 +1,42 @@
-import type { Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { User } from '../model/user';
+import type { User as IUser } from '../types/user';
 import { oktaController } from './oktaController';
 
 class UserController {
-	public addUsers = async (req: Request, res: Response) => {
+	public addUser = async (request: Request, response: Response) => {
 		try {
-			let user = req.body;
-			let find = await User.findOne({ email: user.email });
-
-			if (find) {
-				return res.status(422).json({ message: 'user already exists' });
+			const newUser = request.body;
+			const existingUser = await User.findOne({ email: newUser.email });
+			if (existingUser) {
+				return response.status(422).json({ message: 'User already exists' });
 			} else {
-				oktaController
-					.registerUser(req, res)
-					.then(async () => {
-						user = new User({
-							...user,
-						});
-						await user.save();
-						return res
-							.status(201)
-							.json({ message: 'user created successfully' });
-					})
-					.catch((error: Error) => {
-						throw error;
-					});
+				await this.registerAndSaveUser(request, response);
 			}
 		} catch (error) {
-			return res.status(500).json({ error: error });
+			return response.status(500).json({ error: 'Internal Server Error' });
 		}
 	};
+
+	private async registerAndSaveUser(request: Request, response: Response) {
+		try {
+			const oktaResponse = (await oktaController.registerInOkta(
+				request,
+				response,
+			)) as any;
+			const newUser = new User({
+				...oktaResponse,
+				oktaId: oktaResponse.id,
+			});
+			await newUser.save();
+
+			return response
+				.status(201)
+				.json({ message: 'User created successfully' });
+		} catch (error) {
+			throw error;
+		}
+	}
 }
 
 export const userController = new UserController();

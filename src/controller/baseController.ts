@@ -1,6 +1,6 @@
 class BaseController {
 	public apiMethod = (data: any) => async (req: Request, res) => {
-		console.log(req.headers);
+		// console.log(req.headers);
 		try {
 			return res.status(200).json(data);
 		} catch (error) {
