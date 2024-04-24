@@ -9,8 +9,10 @@ import userApi from './routes/userRoutes';
 const app = express();
 const server = http.createServer(app);
 const corsOptions = {
-	origin: config.application.uri,
-	credentials: true,
+	origin: '*',
+    methods: '*',
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
 	optionSuccessStatus: 200,
 };
 
@@ -23,7 +25,7 @@ app.get('/', (req, res) => {
 app.use('/user', userApi);
 
 app.use(function (_req, res, next) {
-	res.setHeader('Access-Control-Allow-Origin', config.application.uri);
+	res.setHeader('Access-Control-Allow-Origin', '*');
 	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
 	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 	next();
